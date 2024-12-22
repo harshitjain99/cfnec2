@@ -4,10 +4,6 @@ Parameters:
     Type: String
     Default: t2.micro
     Description: EC2 instance type
-  KeyName:
-    Type: AWS::EC2::KeyPair::KeyName
-    Description: Name of an existing EC2 KeyPair
-    Default: NVKEY
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
     Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
@@ -16,7 +12,6 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
-      KeyName: !Ref KeyName
       ImageId: !Ref LatestAmiId
       SecurityGroups:
         - !Ref InstanceSecurityGroup
