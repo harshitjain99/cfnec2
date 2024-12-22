@@ -8,17 +8,18 @@ Parameters:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair
     Default: NVKEY
-
+  LatestAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
 Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
-      ImageId: !Ref 'AWS::Systems::StringParameter::Value<AWS::EC2::Image::Id>/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+      ImageId: !Ref LatestAmiId
       SecurityGroups:
         - !Ref InstanceSecurityGroup
-
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
